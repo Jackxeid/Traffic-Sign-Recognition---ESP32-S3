@@ -5,5 +5,12 @@
     "--background-index",
     "--query-driver=**",
     "--compile-commands-dir=c:\\DUT\\Ki_2\\Edge AI\\firmware\\build"
-  ]
+  ],
+  "idf.currentSetup": "C:\\esp\\v6.0\\esp-idf",
+  "idf.customExtraVars": {
+    "IDF_TARGET": "esp32s3"
+  },
+  "idf.flashType": "UART",
+  "idf.portWin": "COM7",
+  "idf.openOcdConfigs": ["board/esp32s3-builtin.cfg"]
 }

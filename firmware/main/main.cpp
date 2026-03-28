@@ -2,6 +2,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "driver/gpio.h"
+#include "esp_sleep.h"
 
 // Định nghĩa một lớp LED để quản lý
 class Led {
@@ -24,12 +25,20 @@ public:
     }
 };
 
-extern "C" void app_main(void) {
-    // Khởi tạo đối tượng LED ở chân GPIO 2
-    Led myLed(GPIO_NUM_2); 
+void stop_esp32() {
+    printf("Đang chuẩn bị đi ngủ sâu... 😴\n");
+    // Chip sẽ dừng hoàn toàn cho đến khi bạn rút nguồn hoặc kích hoạt chân Wakeup
+    esp_deep_sleep_start(); 
+}
 
-    while (true) {
-        printf("Đang nháy đèn bằng C++... ✨\n");
-        myLed.blink(500); // Nháy đèn mỗi 1 giây
-    }
+extern "C" void app_main(void) {
+    // // Khởi tạo đối tượng LED ở chân GPIO 2
+    // Led myLed(GPIO_NUM_2); 
+
+    // while (true) {
+    //     printf("Đang nháy đèn bằng C++... ✨\n");
+    //     myLed.blink(500); // Nháy đèn mỗi 1 giây
+    // }
+
+    stop_esp32();
 }

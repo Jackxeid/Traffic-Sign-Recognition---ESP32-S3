@@ -1,5 +1,5 @@
 # Bỏ qua thư mục môi trường ảo tên là deepseek
-Deepseek/env/
+tfmot/env/
 
 # Các file cấu hình nhạy cảm (như API keys)
 .env

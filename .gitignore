@@ -1,0 +1,13 @@
+# Bỏ qua thư mục môi trường ảo tên là deepseek
+Deepseek/env/
+
+# Các file cấu hình nhạy cảm (như API keys)
+.env
+
+# Các file rác của Python khi chạy code
+__pycache__/
+*.pyc
+
+# Nếu bạn dùng VS Code để code ESP32-S3
+.vscode/
+build/

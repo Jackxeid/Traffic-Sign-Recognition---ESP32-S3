@@ -11,3 +11,6 @@ __pycache__/
 # Nếu bạn dùng VS Code để code ESP32-S3
 .vscode/
 build/
+
+# dataset
+dataset/

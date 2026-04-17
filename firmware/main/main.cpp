@@ -13,6 +13,18 @@ static const char *TAG = "LED_CONTROL";
 // Độ phân giải xung RMT
 #define LED_STRIP_RMT_RES_HZ  (10 * 1000 * 1000)
 
+struct RGBColor {
+    int red;
+    int green;
+    int blue;
+};
+const RGBColor color_list[] = {
+    {30, 0, 0},   {30, 15, 0},  {30, 30, 0},  {15, 30, 0},
+    {0, 30, 0},   {0, 30, 15},  {0, 30, 30},  {0, 15, 30},
+    {0, 0, 30},   {15, 0, 30},  {30, 0, 30},  {30, 0, 15}
+};
+const int color_count = sizeof(color_list) / sizeof(RGBColor);
+
 extern "C" void app_main(void)
 {
     /* 1. Cấu hình LED Strip */
@@ -35,39 +47,12 @@ extern "C" void app_main(void)
 
     ESP_LOGI(TAG, "Đã khởi tạo LED RGB thành công!");
 
+    int delay = 150; // Độ trễ giữa các bước màu (ms)
     while (1) {
-        // Màu Đỏ (R, G, B)
-        led_strip_set_pixel(led_strip, 0, 30, 0, 0); 
-        led_strip_refresh(led_strip);
-        vTaskDelay(pdMS_TO_TICKS(500));
-
-        // Màu Đỏ (R, G, B)
-        led_strip_set_pixel(led_strip, 0, 30, 30, 0); 
-        led_strip_refresh(led_strip);
-        vTaskDelay(pdMS_TO_TICKS(500));
-
-        // Màu Đỏ (R, G, B)
-        led_strip_set_pixel(led_strip, 0, 0, 30, 0); 
-        led_strip_refresh(led_strip);
-        vTaskDelay(pdMS_TO_TICKS(500));
-
-        // Màu Đỏ (R, G, B)
-        led_strip_set_pixel(led_strip, 0, 0, 30, 30); 
-        led_strip_refresh(led_strip);
-        vTaskDelay(pdMS_TO_TICKS(500));
-
-        // Màu Đỏ (R, G, B)
-        led_strip_set_pixel(led_strip, 0, 0, 0, 30); 
-        led_strip_refresh(led_strip);
-        vTaskDelay(pdMS_TO_TICKS(500));
-        
-        // Màu Xanh dương
-        led_strip_set_pixel(led_strip, 0, 30, 0, 30);
-        led_strip_refresh(led_strip);
-        vTaskDelay(pdMS_TO_TICKS(500));
-
-        // // Tắt LED
-        // led_strip_clear(led_strip);
-        // vTaskDelay(pdMS_TO_TICKS(500));
+        for (int i = 0; i < color_count; i++) {
+            led_strip_set_pixel(led_strip, 0, color_list[i].red, color_list[i].green, color_list[i].blue);
+            led_strip_refresh(led_strip);
+            vTaskDelay(pdMS_TO_TICKS(delay));
+        }
     }
 }

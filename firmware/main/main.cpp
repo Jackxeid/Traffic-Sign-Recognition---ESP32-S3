@@ -37,12 +37,12 @@ extern "C" void app_main(void)
 
     while (1) {
         // Màu Đỏ (R, G, B)
-        led_strip_set_pixel(led_strip, 0, 30, 0, 0); 
+        led_strip_set_pixel(led_strip, 0, 255, 0, 0); 
         led_strip_refresh(led_strip);
         vTaskDelay(pdMS_TO_TICKS(500));
 
-        // Màu Xanh dương
-        led_strip_set_pixel(led_strip, 0, 0, 30, 0);
+        // Màu Xanh lá
+        led_strip_set_pixel(led_strip, 0, 0, 255, 0);
         led_strip_refresh(led_strip);
         vTaskDelay(pdMS_TO_TICKS(500));
 

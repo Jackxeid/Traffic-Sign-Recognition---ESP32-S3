@@ -14,14 +14,16 @@ static const char *TAG = "LED_CONTROL";
 #define LED_STRIP_RMT_RES_HZ  (10 * 1000 * 1000)
 
 struct RGBColor {
-    int red;
-    int green;
-    int blue;
+    uint32_t red;
+    uint32_t green;
+    uint32_t blue;
 };
 const RGBColor color_list[] = {
-    {30, 0, 0},   {30, 15, 0},  {30, 30, 0},  {15, 30, 0},
-    {0, 30, 0},   {0, 30, 15},  {0, 30, 30},  {0, 15, 30},
-    {0, 0, 30},   {15, 0, 30},  {30, 0, 30},  {30, 0, 15}
+    {1, 3, 4},    // Gốc: {4, 20, 32}
+    {1, 5, 7},    // Gốc: {4, 38, 49}
+    {11, 16, 16}, // Gốc: {75, 114, 115}
+    {19, 26, 25}, // Gốc: {134, 185, 177}
+    {29, 30, 30}, // Gốc: {207, 214, 214} -> Trở thành ngưỡng 30
 };
 const int color_count = sizeof(color_list) / sizeof(RGBColor);
 
@@ -48,11 +50,17 @@ extern "C" void app_main(void)
     ESP_LOGI(TAG, "Đã khởi tạo LED RGB thành công!");
 
     int delay = 150; // Độ trễ giữa các bước màu (ms)
-    while (1) {
+    int count = 3;
+    while (count > 0) {
         for (int i = 0; i < color_count; i++) {
             led_strip_set_pixel(led_strip, 0, color_list[i].red, color_list[i].green, color_list[i].blue);
             led_strip_refresh(led_strip);
             vTaskDelay(pdMS_TO_TICKS(delay));
         }
+        count--;
     }
+
+    led_strip_clear(led_strip);
+    led_strip_refresh(led_strip);
+    led_strip_del(led_strip); // Xóa handle, giải phóng tài nguyên hệ thống
 }

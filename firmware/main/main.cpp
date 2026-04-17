@@ -42,7 +42,7 @@ extern "C" void app_main(void)
         vTaskDelay(pdMS_TO_TICKS(500));
 
         // Màu Xanh dương
-        led_strip_set_pixel(led_strip, 0, 0, 0, 30);
+        led_strip_set_pixel(led_strip, 0, 0, 30, 0);
         led_strip_refresh(led_strip);
         vTaskDelay(pdMS_TO_TICKS(500));
 
